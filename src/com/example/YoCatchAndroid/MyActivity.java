@@ -81,7 +81,6 @@ public class MyActivity extends Activity {
             //Setting string to current label text
             displayText = yoField.getText() + "\n" + nameField.getText();
 
-            System.out.println("hey");
             //New color generated
             Random rnd = new Random();
             int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
