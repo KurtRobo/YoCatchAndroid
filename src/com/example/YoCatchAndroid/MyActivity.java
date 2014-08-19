@@ -27,7 +27,7 @@ public class MyActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        displayText = "";
+        displayText = "asdasd";
         myTextView = (TextView) findViewById(R.id.textView);
         yoField = (EditText) findViewById(R.id.yoField);
         nameField = (EditText) findViewById(R.id.nameField);
