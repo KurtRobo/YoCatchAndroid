@@ -4,12 +4,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.*;
 import java.util.*;
 import android.graphics.Color;
+import android.widget.GridLayout.LayoutParams;
+
 public class MyActivity extends Activity {
     /**
      * Called when the activity is first created.
@@ -27,12 +26,36 @@ public class MyActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        displayText = "asdasd";
-        myTextView = (TextView) findViewById(R.id.textView);
+        LinearLayout myLayout = new LinearLayout(this);
+        myLayout.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout.LayoutParams linLayoutParam = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        setContentView(myLayout, linLayoutParam);
+
+        Button newButton = new Button(this.getApplicationContext());
+        newButton.setText("button");
+
+        myLayout.addView(newButton, linLayoutParam);
+
+        displayText = "";
+       /* myTextView = (TextView) findViewById(R.id.textView);
         yoField = (EditText) findViewById(R.id.yoField);
         nameField = (EditText) findViewById(R.id.nameField);
         showMessageButton = (Button) findViewById(R.id.showMessageButton);
-        myLayout = (LinearLayout) findViewById(R.id.myLayout);
+        myLayout = (LinearLayout) findViewById(R.id.myLayout);*/
+
+
+
+
+
+
+
+
+
+
+
+        //Leave stuff
+
+
 
         showMessageButton.setOnClickListener(new View.OnClickListener() {
             @Override
