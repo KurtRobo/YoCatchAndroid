@@ -2,6 +2,7 @@ package com.example.YoCatchAndroid;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.*;
@@ -18,7 +19,6 @@ public class MyActivity extends Activity {
     private TextView myTextView;
     private EditText yoField;
     private EditText nameField;
-    private Button showMessageButton;
     private LinearLayout myLayout;
 
     @Override
@@ -26,37 +26,53 @@ public class MyActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        LinearLayout myLayout = new LinearLayout(this);
-        myLayout.setOrientation(LinearLayout.VERTICAL);
-        LinearLayout.LayoutParams linLayoutParam = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-        setContentView(myLayout, linLayoutParam);
-
-        Button newButton = new Button(this.getApplicationContext());
-        newButton.setText("button");
-
-        myLayout.addView(newButton, linLayoutParam);
-
+        //Defining output text
         displayText = "";
-       /* myTextView = (TextView) findViewById(R.id.textView);
-        yoField = (EditText) findViewById(R.id.yoField);
-        nameField = (EditText) findViewById(R.id.nameField);
-        showMessageButton = (Button) findViewById(R.id.showMessageButton);
-        myLayout = (LinearLayout) findViewById(R.id.myLayout);*/
+
+        //Linking to XML layout field
+        myLayout = (LinearLayout) findViewById(R.id.myLayout);
+
+        //Setting editText parameters
+        LinearLayout.LayoutParams editTextParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        editTextParams.leftMargin = 30;
+        editTextParams.topMargin = 30;
+        editTextParams.rightMargin = 30;
+
+        //Create yo text field
+        yoField = new EditText(this.getApplicationContext());
+        yoField.setHint("Yo");
+        yoField.setWidth(1000);
+
+        //Create name text field
+        nameField = new EditText(this.getApplicationContext());
+        nameField.setHint("Catch!");
+        nameField.setWidth(1000);
+
+        //Create text label
+        myTextView = new TextView(this.getApplicationContext());
+        myTextView.setTextSize(60);
+        myTextView.setText(displayText);
+        myTextView.setGravity(Gravity.CENTER);
+        myTextView.setTextColor(Color.WHITE);
+
+        //Create button parameters
+        LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        buttonParams.bottomMargin = 30;
+        buttonParams.gravity = Gravity.CENTER;
+
+        //Create button
+        Button showMessageButton = new Button(this.getApplicationContext());
+        showMessageButton.setText("Show Message");
+
+        //Adding objects to view
+        setContentView(myLayout, editTextParams);
+        myLayout.addView(yoField, editTextParams);
+        myLayout.addView(nameField, editTextParams);
+        myLayout.addView(myTextView, new LinearLayout.LayoutParams(720, 700));
+        myLayout.addView(showMessageButton, buttonParams);
 
 
-
-
-
-
-
-
-
-
-
-        //Leave stuff
-
-
-
+        //Logic etc
         showMessageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
