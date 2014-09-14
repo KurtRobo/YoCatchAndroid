@@ -1,6 +1,8 @@
 package com.example.YoCatchAndroid;
 
 import android.app.Activity;
+import android.content.res.AssetFileDescriptor;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -8,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.io.IOException;
 import java.util.*;
 import android.graphics.Color;
 public class MyActivity extends Activity {
@@ -21,6 +25,9 @@ public class MyActivity extends Activity {
     private EditText nameField;
     private Button showMessageButton;
     private LinearLayout myLayout;
+    private MediaPlayer normalYo;
+    private MediaPlayer softYo;
+    private MediaPlayer loudYo;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,6 +47,8 @@ public class MyActivity extends Activity {
                 changeLabel();
             }
         });
+
+        setupSounds();
 
         yoField.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -76,6 +85,30 @@ public class MyActivity extends Activity {
         });
     }
 
+    public void setupSounds() {
+        normalYo = new MediaPlayer();
+        softYo = new MediaPlayer();
+        loudYo = new MediaPlayer();
+
+        try {
+            AssetFileDescriptor normalAfd = getAssets().openFd("yoSound1.mp3");
+            AssetFileDescriptor softAfd = getAssets().openFd("yoSound2.mp3");
+            AssetFileDescriptor loudAfd = getAssets().openFd("yoSound3.mp3");
+
+            normalYo.setDataSource(normalAfd.getFileDescriptor(), normalAfd.getStartOffset(), normalAfd.getLength());
+            softYo.setDataSource(softAfd.getFileDescriptor(), softAfd.getStartOffset(), softAfd.getLength());
+            loudYo.setDataSource(loudAfd.getFileDescriptor(), loudAfd.getStartOffset(), loudAfd.getLength());
+
+            normalYo.prepare();
+            softYo.prepare();
+            loudYo.prepare();
+        }
+        catch (IllegalArgumentException e) {}
+        catch (IllegalStateException e) {}
+        catch (IOException e) {}
+
+    }
+
     public void changeLabel() {
         if(!displayText.equals(yoField.getText() + "\n" + nameField.getText())) {
             //Setting string to current label text
@@ -86,6 +119,18 @@ public class MyActivity extends Activity {
             int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
             myLayout.setBackgroundColor(color);
             myTextView.setText(displayText);
+
+            if(yoField.getText().toString().equals("Yo")) {
+                this.normalYo.start();
+                System.out.println("normal");
+            }
+            else if(yoField.getText().toString().equals("yo")) {
+                this.softYo.start();
+            }
+            else if(yoField.getText().toString().equals("YO"))
+                this.loudYo.start();
+
+            System.out.println("-" + yoField.getText() + "-");
         }
     }
 }
