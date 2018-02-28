@@ -28,6 +28,8 @@ public class MyActivity extends Activity {
     private MediaPlayer normalYo;
     private MediaPlayer softYo;
     private MediaPlayer loudYo;
+    private String localizedYo;
+    private String localizedCatch;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,10 @@ public class MyActivity extends Activity {
         nameField = (EditText) findViewById(R.id.nameField);
         showMessageButton = (Button) findViewById(R.id.showMessageButton);
         myLayout = (LinearLayout) findViewById(R.id.myLayout);
+
+        localizedYo = getResources().getString(R.string.Yo);
+        localizedCatch = getResources().getString(R.string.Kurt);
+
 
         showMessageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,7 +118,23 @@ public class MyActivity extends Activity {
     public void changeLabel() {
         if(!displayText.equals(yoField.getText() + "\n" + nameField.getText())) {
             //Setting string to current label text
+
+            if(yoField.getText().toString().equals(getString(R.string.Yo))) {
+              //  localizedYo = yoField.getText().toString();
+                System.out.println(localizedYo.toString().getI);
+            }
+
+/*
+            if(!nameField.getText().toString().equals(localizedCatch)) {
+                localizedCatch = nameField.getText().toString();
+            }*/
+
+            //displayText = localizedYo + "\n" + localizedCatch;
+
+
+
             displayText = yoField.getText() + "\n" + nameField.getText();
+
 
             //New color generated
             Random rnd = new Random();
@@ -120,17 +142,15 @@ public class MyActivity extends Activity {
             myLayout.setBackgroundColor(color);
             myTextView.setText(displayText);
 
-            if(yoField.getText().toString().equals("Yo")) {
+            if(localizedYo.equals("Yo")) {
                 this.normalYo.start();
-                System.out.println("normal");
             }
-            else if(yoField.getText().toString().equals("yo")) {
+            else if(localizedYo.equals("yo")) {
                 this.softYo.start();
             }
-            else if(yoField.getText().toString().equals("YO"))
+            else if(localizedYo.equals("YO"))
                 this.loudYo.start();
 
-            System.out.println("-" + yoField.getText() + "-");
         }
     }
 }
